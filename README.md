@@ -28,24 +28,28 @@ apt install curl -y
 ## 2.执行官方脚本 安装caddy
 
 ```
+
 curl https://getcaddy.com | bash -s personal http.forwardproxy,http.proxyprotocol
+
 ```
 
 ## 3.配置caddy
 
 添加caddy配置文件：/usr/local/bin/ [Caddyfile]
 
+配置https(h2)代理的用户名、密码
+
 ```
 touch /usr/local/bin/Caddyfile
 
 cat <<EOF > /usr/local/bin/Caddyfile
 103-1-14-203.ip.c2ray.ml:443 {
-tls yude268@qq.com
+tls admin@103-1-14-203.ip.c2ray.ml
 root /www
 gzip
 index index.html
 forwardproxy {
-        basicauth yude268 130130
+        basicauth username password
 }
 }
 EOF
@@ -104,7 +108,8 @@ systemctl restart caddy
 ```
 - Chrome:     ProxySwitchyOmega 插件，代理类型选择 https, 端口填443, 再点击右侧的小锁，输入用来验证代理的用户名和密码即可。
 - Firefox:    Foxyproxy 插件，配置方式大同小异。
-- IOS         SURGE   ，代理类型选择HTTPS，余下配置大同小异
+- IOS:        SURGE 等，代理类型选择HTTPS，配置方式大同小异。
+- Android:    ProxyDroid、Postern 等，配置方式大同小异。
 ```
 
 ## 可能用到的命令
@@ -114,7 +119,7 @@ systemctl restart caddy
 systemctl stop apache2
 systemctl disable apache2
 
-基于caddy的https代理可以与c2ray项目共存，有兴趣的可以自行研究一下
+基于caddy的https代理可以与c2ray项目共存，有兴趣的可以自行研究一下。
 https://github.com/dylanbai8/c2ray_step_by_step/blob/master/C2ray-(WebSocket+TLS+Web)-底层传输SSL加密.md
 ```
 
